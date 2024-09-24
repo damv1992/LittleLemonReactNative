@@ -6,10 +6,9 @@ import LittleLemonFooter from './components/LittleLemonFooter'
 import WelcomeScreen from './WelcomeScreen'
 import LoginScreen from './LoginScreen'
 import { NavigationContainer } from '@react-navigation/native'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
-const Tab = createBottomTabNavigator()
+const Drawer = createDrawerNavigator()
 
 export default function App() {
   return (
@@ -17,19 +16,10 @@ export default function App() {
       <NavigationContainer>
         <View style={styles.container}>
           <LittleLemonHeader />
-          <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({size}) => {
-                let iconName
-                if (route.name === 'Welcome') iconName = 'home'
-                else if (route.name === 'Login') iconName = 'enter'
-                return <Ionicons name={iconName} size={size} />
-              },
-            })}
-            initialRouteName="Login">
-            <Tab.Screen name="Welcome" component={WelcomeScreen} />
-            <Tab.Screen name="Login" component={LoginScreen} />
-          </Tab.Navigator>
+          <Drawer.Navigator initialRouteName="Login">
+            <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+            <Drawer.Screen name="Login" component={LoginScreen} />
+          </Drawer.Navigator>
         </View>
         <View style={styles.footerContainer}>
           <LittleLemonFooter />
