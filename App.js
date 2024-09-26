@@ -1,62 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  View,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import { FlatList, Text, SafeAreaView, View, StyleSheet } from 'react-native'
+import menuItems from './menuItems.json'
 
 export default App = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  const getMenu = async () => {
-    try {
-      const response = await fetch(
-        'https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json'
-      );
-      const json = await response.json();
-      setData(json.menu);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getMenu();
-  }, []);
+  const { menu } = menuItems
 
   const Item = ({ name, price }) => (
     <View style={menuStyles.innerContainer}>
       <Text style={menuStyles.itemText}>{name}</Text>
       <Text style={menuStyles.itemText}>{'$' + price}</Text>
     </View>
-  );
+  )
 
   const renderItem = ({ item }) => (
     <Item name={item.title} price={item.price} />
-  );
+  )
 
   return (
     <SafeAreaView style={menuStyles.container}>
-      <Text style={menuStyles.headerText}>Little Lemon</Text>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-          data={data}
-          keyExtractor={({ id }, index) => id}
-          renderItem={renderItem}
-        />
-      )}
+      <Text style={menuStyles.headerText}>Little Lemon Menu</Text>
+      <FlatList data={menu} keyExtractor={({ id }) => id} renderItem={renderItem} />
     </SafeAreaView>
-  );
-};
-
+  )
+}
+  
 const menuStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -73,8 +39,9 @@ const menuStyles = StyleSheet.create({
     fontSize: 22,
   },
   headerText: {
-    color: '#495E57',
+    color: '#F4CE14',
     fontSize: 30,
     textAlign: 'center',
+    paddingTop: 30,
   },
-});
+})
