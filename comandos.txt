@@ -12,5 +12,5 @@ npm install lodash.debounce
 npm install -g eas-cli
 eas login
 eas build:configure
-eas build -p android --profile development
+eas build -p android --profile preview
 adb install route.apk
